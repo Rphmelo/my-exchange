@@ -1,12 +1,13 @@
-package com.rphmelo.myexchange
+package com.rphmelo.myexchange.rates
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.rphmelo.myexchange.R
 
-class MainActivity : AppCompatActivity() {
+class RatesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_rates)
     }
 }
