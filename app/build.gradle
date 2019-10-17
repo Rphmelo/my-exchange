@@ -38,7 +38,11 @@ dependencies {
     implementation "com.android.support:cardview-v7:$versionAndroidSupport"
     implementation "com.android.support:design:$versionAndroidSupport"
 
-    // ViewModel and LiveData
+    implementation 'com.google.dagger:dagger:2.16'
+    kapt 'com.google.dagger:dagger-compiler:2.16'
+    kapt "com.google.dagger:dagger-android-processor:2.16"
+    implementation 'com.google.dagger:dagger-android-support:2.15'
+
     implementation 'android.arch.lifecycle:extensions:1.1.1'
     kapt 'android.arch.lifecycle:compiler:1.1.1'
 

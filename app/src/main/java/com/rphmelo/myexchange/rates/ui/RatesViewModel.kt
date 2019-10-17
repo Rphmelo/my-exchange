@@ -1,0 +1,53 @@
+package com.rphmelo.myexchange.rates.ui
+
+import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.ViewModel
+import com.rphmelo.myexchange.rates.model.RatesResponse
+import com.rphmelo.myexchange.rates.repository.RatesRepository
+import io.reactivex.Observer
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.Executor
+import javax.inject.Inject
+
+class RatesViewModel @Inject constructor(var ratesRepository: RatesRepository, private val executor: Executor) : ViewModel() {
+
+    var ratesList = MutableLiveData<HashMap<String, Double>>()
+    var disposable: Disposable? = null
+
+    fun getLatest(base: String) {
+        executor.execute {
+            ratesRepository.getLatest(base)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object: Observer<RatesResponse> {
+                    override fun onComplete() {
+
+                    }
+
+                    override fun onSubscribe(d: Disposable) {
+                        disposable = d
+                    }
+
+                    override fun onNext(ratesResponse: RatesResponse) {
+                        ratesList.value = ratesResponse.rates
+                    }
+
+                    override fun onError(e: Throwable) {
+
+                    }
+                })
+        }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        dispose()
+    }
+
+    private fun dispose(){
+        disposable?.dispose()
+    }
+}
