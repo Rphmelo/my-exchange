@@ -4,6 +4,7 @@ import android.app.Application
 import com.rphmelo.myexchange.MyApplication
 import com.rphmelo.myexchange.di.modules.ActivityModule
 import com.rphmelo.myexchange.di.modules.MyExchangeModule
+import com.rphmelo.myexchange.di.modules.NetworkModule
 import com.rphmelo.myexchange.di.modules.ViewModelModule
 import dagger.BindsInstance
 import dagger.Component
@@ -15,7 +16,8 @@ import javax.inject.Singleton
     AndroidSupportInjectionModule::class,
     MyExchangeModule::class,
     ActivityModule::class,
-    ViewModelModule::class
+    ViewModelModule::class,
+    NetworkModule::class
 ])
 interface MyExchangeComponent {
 

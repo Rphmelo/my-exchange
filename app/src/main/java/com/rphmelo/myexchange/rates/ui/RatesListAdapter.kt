@@ -22,11 +22,15 @@ class RatesListAdapter (
     }
 
     override fun getItemCount(): Int {
-        return ratesList.toList().size
+        return ratesList.values.toList().size
     }
 
     override fun onBindViewHolder(holder: RatesListViewHolder, position: Int) {
         holder.bindView(ratesList.toList()[position])
+    }
+
+    fun updateRatesList(ratesList: HashMap<String, Double>){
+        this.ratesList = ratesList
     }
 
     inner class RatesListViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -38,7 +42,7 @@ class RatesListAdapter (
 
         fun bindView(rate: Pair<String, Double>) = with(itemView){
             txtCode.text = rate.first
-            inputEditTextItemListRates.text = rate.second as Editable
+            inputEditTextItemListRates.setText(rate.second.toString())
         }
 
     }

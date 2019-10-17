@@ -40,8 +40,8 @@ class RatesActivity : AppCompatActivity() {
     private fun observeGetLatest() {
         ratesViewModel.ratesList.observe(this, Observer {
             it?.apply {
-                ratesListAdapter = RatesListAdapter(baseContext, this)
-                ratesListAdapter.notifyDataSetChanged()
+                ratesListAdapter.updateRatesList(this)
+                rvActivityRatesListRates.adapter?.notifyDataSetChanged()
             }
         })
     }

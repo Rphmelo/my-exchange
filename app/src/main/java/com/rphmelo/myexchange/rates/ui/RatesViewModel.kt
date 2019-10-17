@@ -11,7 +11,7 @@ import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.Executor
 import javax.inject.Inject
 
-class RatesViewModel @Inject constructor(var ratesRepository: RatesRepository, private val executor: Executor) : ViewModel() {
+class RatesViewModel @Inject constructor(private var ratesRepository: RatesRepository, private val executor: Executor) : ViewModel() {
 
     var ratesList = MutableLiveData<HashMap<String, Double>>()
     var disposable: Disposable? = null
@@ -36,7 +36,7 @@ class RatesViewModel @Inject constructor(var ratesRepository: RatesRepository, p
                     }
 
                     override fun onError(e: Throwable) {
-
+                        disposable = null
                     }
                 })
         }
