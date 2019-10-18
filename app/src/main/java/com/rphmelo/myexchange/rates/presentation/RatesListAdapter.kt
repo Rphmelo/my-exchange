@@ -1,10 +1,9 @@
-package com.rphmelo.myexchange.rates.ui
+package com.rphmelo.myexchange.rates.presentation
 
 import android.content.Context
 import android.support.design.widget.TextInputEditText
 import android.support.design.widget.TextInputLayout
 import android.support.v7.widget.RecyclerView
-import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,7 @@ import com.rphmelo.myexchange.R
 
 class RatesListAdapter (
     private val context: Context,
-    private var ratesList: HashMap<String, Double>
+    private var ratesList: HashMap<String, Double>?
 ): RecyclerView.Adapter<RatesListAdapter.RatesListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RatesListViewHolder {
@@ -22,14 +21,20 @@ class RatesListAdapter (
     }
 
     override fun getItemCount(): Int {
-        return ratesList.values.toList().size
+        var itemCount = 0
+
+        ratesList?.values?.toList()?.let {
+            itemCount = it.size
+        }
+
+        return itemCount
     }
 
     override fun onBindViewHolder(holder: RatesListViewHolder, position: Int) {
-        holder.bindView(ratesList.toList()[position])
+        ratesList?.toList()?.get(position)?.let { holder.bindView(it) }
     }
 
-    fun updateRatesList(ratesList: HashMap<String, Double>){
+    fun updateRatesList(ratesList: HashMap<String, Double>?){
         this.ratesList = ratesList
     }
 

@@ -2,8 +2,8 @@ package com.rphmelo.myexchange.di.modules
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.rphmelo.myexchange.rates.repository.RatesRepository
-import com.rphmelo.myexchange.rates.repository.RatesService
+import com.rphmelo.myexchange.rates.data.repository.RatesRepository
+import com.rphmelo.myexchange.rates.data.repository.RatesService
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit

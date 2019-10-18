@@ -8,4 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="MyExchangeTextInputLayoutTheme">
+        <item name="backgroundTint">@color/gray</item>
+        <item name="colorAccent">@color/gray</item>
+    </style>
+
 </resources>

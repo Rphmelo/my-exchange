@@ -1,6 +1,6 @@
-package com.rphmelo.myexchange.rates.repository
+package com.rphmelo.myexchange.rates.data.repository
 
-import com.rphmelo.myexchange.rates.model.RatesResponse
+import com.rphmelo.myexchange.rates.domain.model.RatesResponse
 import io.reactivex.Observable
 import javax.inject.Inject
 import javax.inject.Singleton

@@ -1,9 +1,9 @@
-package com.rphmelo.myexchange.rates.ui
+package com.rphmelo.myexchange.rates.presentation
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import com.rphmelo.myexchange.rates.model.RatesResponse
-import com.rphmelo.myexchange.rates.repository.RatesRepository
+import com.rphmelo.myexchange.rates.domain.model.RatesResponse
+import com.rphmelo.myexchange.rates.data.repository.RatesRepository
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable

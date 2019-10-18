@@ -1,4 +1,4 @@
-package com.rphmelo.myexchange.rates.ui
+package com.rphmelo.myexchange.rates.presentation
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider

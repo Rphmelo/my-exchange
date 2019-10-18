@@ -1,4 +1,4 @@
-package com.rphmelo.myexchange.rates.model
+package com.rphmelo.myexchange.rates.domain.model
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
