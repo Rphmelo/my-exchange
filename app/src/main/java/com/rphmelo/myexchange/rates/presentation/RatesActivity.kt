@@ -6,7 +6,11 @@ import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
+import android.view.View
+import android.widget.ProgressBar
 import com.rphmelo.myexchange.R
+import com.rphmelo.myexchange.extension.gone
+import com.rphmelo.myexchange.extension.visible
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
@@ -15,6 +19,7 @@ class RatesActivity : AppCompatActivity() {
     private lateinit var ratesViewModel: RatesViewModel
     private lateinit var rvActivityRatesListRates: RecyclerView
     private lateinit var ratesListAdapter: RatesListAdapter
+    private lateinit var ratesProgressBar: ProgressBar
     private val defaultBase = "EUR"
 
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -23,18 +28,26 @@ class RatesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rates)
 
+        initComponents()
+
         configureDagger()
         configureViewModel()
 
+        observeLoading()
         observeGetLatest()
         setupRecyclerView()
     }
 
     private fun setupRecyclerView(){
         ratesListAdapter = RatesListAdapter(baseContext, HashMap())
-        rvActivityRatesListRates = findViewById(R.id.recycler_activity_rates_list_rates)
+        rvActivityRatesListRates.hasFixedSize()
         rvActivityRatesListRates.adapter = ratesListAdapter
         ratesViewModel.getLatest(defaultBase)
+    }
+
+    private fun initComponents(){
+        ratesProgressBar = findViewById(R.id.progress_bar_rates_list)
+        rvActivityRatesListRates = findViewById(R.id.recycler_activity_rates_list_rates)
     }
 
     private fun observeGetLatest() {
@@ -43,6 +56,19 @@ class RatesActivity : AppCompatActivity() {
                 ratesListAdapter.updateRatesList(this)
                 rvActivityRatesListRates.adapter?.notifyDataSetChanged()
             }
+        })
+    }
+
+    private fun observeLoading() {
+        ratesViewModel.isLoading.observe(this, Observer {
+            it?.apply {
+                if(this){
+                    ratesProgressBar.visible()
+                } else {
+                    ratesProgressBar.gone()
+                }
+            }
+
         })
     }
 

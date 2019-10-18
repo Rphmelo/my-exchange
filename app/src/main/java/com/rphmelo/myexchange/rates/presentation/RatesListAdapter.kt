@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.rphmelo.myexchange.R
+import com.rphmelo.myexchange.common.MonetaryTextWatcher
 
 class RatesListAdapter (
     private val context: Context,
@@ -44,6 +45,12 @@ class RatesListAdapter (
         private val txtCode: TextView = itemView.findViewById(R.id.textview_view_item_list_rates_code)
         private var inputLayoutItemListRates: TextInputLayout = itemView.findViewById(R.id.input_layout_item_list_rates)
         private var inputEditTextItemListRates: TextInputEditText = itemView.findViewById(R.id.input_edit_text_item_list_rates)
+
+        init {
+            inputEditTextItemListRates.apply {
+                addTextChangedListener(MonetaryTextWatcher(this))
+            }
+        }
 
         fun bindView(rate: Pair<String, Double>) = with(itemView){
             txtCode.text = rate.first

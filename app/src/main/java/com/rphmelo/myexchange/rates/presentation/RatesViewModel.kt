@@ -14,17 +14,21 @@ import javax.inject.Inject
 class RatesViewModel @Inject constructor(private var ratesRepository: RatesRepository, private val executor: Executor) : ViewModel() {
 
     var ratesList = MutableLiveData<HashMap<String, Double>>()
+    var isLoading = MutableLiveData<Boolean>()
     var disposable: Disposable? = null
 
     fun getLatest(base: String) {
+        setLoading(true)
+
         executor.execute {
+
             ratesRepository.getLatest(base)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object: Observer<RatesResponse> {
                     override fun onComplete() {
-
+                        setLoading(false)
                     }
 
                     override fun onSubscribe(d: Disposable) {
@@ -40,6 +44,10 @@ class RatesViewModel @Inject constructor(private var ratesRepository: RatesRepos
                     }
                 })
         }
+    }
+
+    private fun setLoading(value: Boolean){
+        isLoading.value = value
     }
 
     override fun onCleared() {
