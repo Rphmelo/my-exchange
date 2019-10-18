@@ -6,7 +6,6 @@ import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
-import android.view.View
 import android.widget.ProgressBar
 import com.rphmelo.myexchange.R
 import com.rphmelo.myexchange.extension.gone
@@ -14,7 +13,7 @@ import com.rphmelo.myexchange.extension.visible
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
-class RatesActivity : AppCompatActivity() {
+class RatesActivity : AppCompatActivity(), RatesView {
 
     private lateinit var ratesViewModel: RatesViewModel
     private lateinit var rvActivityRatesListRates: RecyclerView
@@ -39,9 +38,10 @@ class RatesActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView(){
-        ratesListAdapter = RatesListAdapter(baseContext, HashMap())
+        ratesListAdapter = RatesListAdapter(baseContext, arrayListOf())
         rvActivityRatesListRates.hasFixedSize()
         rvActivityRatesListRates.adapter = ratesListAdapter
+
         ratesViewModel.getLatest(defaultBase)
     }
 
@@ -68,7 +68,6 @@ class RatesActivity : AppCompatActivity() {
                     ratesProgressBar.gone()
                 }
             }
-
         })
     }
 

@@ -4,6 +4,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.rphmelo.myexchange.rates.domain.model.RatesResponse
 import com.rphmelo.myexchange.rates.data.repository.RatesRepository
+import com.rphmelo.myexchange.rates.domain.model.Rate
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -13,7 +14,7 @@ import javax.inject.Inject
 
 class RatesViewModel @Inject constructor(private var ratesRepository: RatesRepository, private val executor: Executor) : ViewModel() {
 
-    var ratesList = MutableLiveData<HashMap<String, Double>>()
+    var ratesList = MutableLiveData<List<Rate>>()
     var isLoading = MutableLiveData<Boolean>()
     var disposable: Disposable? = null
 
@@ -36,7 +37,7 @@ class RatesViewModel @Inject constructor(private var ratesRepository: RatesRepos
                     }
 
                     override fun onNext(ratesResponse: RatesResponse) {
-                        ratesList.value = ratesResponse.rates
+                        ratesList.value = ratesResponse.getRatesList()
                     }
 
                     override fun onError(e: Throwable) {

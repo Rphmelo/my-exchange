@@ -9,11 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.rphmelo.myexchange.R
-import com.rphmelo.myexchange.common.MonetaryTextWatcher
+import com.rphmelo.myexchange.rates.domain.model.Rate
 
 class RatesListAdapter (
     private val context: Context,
-    private var ratesList: HashMap<String, Double>?
+    private var ratesList: List<Rate>?
 ): RecyclerView.Adapter<RatesListAdapter.RatesListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RatesListViewHolder {
@@ -24,7 +24,7 @@ class RatesListAdapter (
     override fun getItemCount(): Int {
         var itemCount = 0
 
-        ratesList?.values?.toList()?.let {
+        ratesList?.let {
             itemCount = it.size
         }
 
@@ -32,10 +32,10 @@ class RatesListAdapter (
     }
 
     override fun onBindViewHolder(holder: RatesListViewHolder, position: Int) {
-        ratesList?.toList()?.get(position)?.let { holder.bindView(it) }
+        ratesList?.get(position)?.let { holder.bindView(it) }
     }
 
-    fun updateRatesList(ratesList: HashMap<String, Double>?){
+    fun updateRatesList(ratesList: List<Rate>?){
         this.ratesList = ratesList
     }
 
@@ -46,15 +46,9 @@ class RatesListAdapter (
         private var inputLayoutItemListRates: TextInputLayout = itemView.findViewById(R.id.input_layout_item_list_rates)
         private var inputEditTextItemListRates: TextInputEditText = itemView.findViewById(R.id.input_edit_text_item_list_rates)
 
-        init {
-            inputEditTextItemListRates.apply {
-                addTextChangedListener(MonetaryTextWatcher(this))
-            }
-        }
-
-        fun bindView(rate: Pair<String, Double>) = with(itemView){
-            txtCode.text = rate.first
-            inputEditTextItemListRates.setText(rate.second.toString())
+        fun bindView(rate: Rate) = with(itemView){
+            txtCode.text = rate.code
+            inputEditTextItemListRates.setText(rate.value.toString())
         }
 
     }
