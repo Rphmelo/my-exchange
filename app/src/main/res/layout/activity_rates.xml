@@ -23,7 +23,7 @@
     <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_activity_rates_list_rates"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_marginTop="16dp"
             android:orientation="vertical"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
@@ -44,6 +44,5 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textview_activity_rates_title"
     />
-
 
 </android.support.constraint.ConstraintLayout>
