@@ -38,7 +38,7 @@ class RatesActivity : AppCompatActivity(), RatesView {
     }
 
     private fun setupRecyclerView(){
-        ratesListAdapter = RatesListAdapter(baseContext, arrayListOf())
+        ratesListAdapter = RatesListAdapter(this, arrayListOf())
         rvActivityRatesListRates.hasFixedSize()
         rvActivityRatesListRates.adapter = ratesListAdapter
 
