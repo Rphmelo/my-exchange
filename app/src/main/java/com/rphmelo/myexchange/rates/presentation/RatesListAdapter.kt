@@ -3,6 +3,7 @@ package com.rphmelo.myexchange.rates.presentation
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Observer
 import android.support.design.widget.TextInputEditText
+import android.support.design.widget.TextInputLayout
 import android.support.v7.widget.RecyclerView
 import android.text.Editable
 import android.text.TextWatcher
@@ -40,14 +41,17 @@ class RatesListAdapter (
     }
 
     override fun onBindViewHolder(holder: RatesListViewHolder, position: Int) {
+        var currentRate: Rate?
         ratesList?.apply {
+            currentRate = get(position)
             if(!hasRatesListValue){
+                currentCode = currentRate?.code
                 ratesListValue.value = this.map { it.value }
                 hasRatesListValue = true
                 isUpdatingValue = true
             }
 
-            holder.bindView(get(position), position)
+            holder.bindView(currentRate, position)
         }
     }
 
@@ -59,13 +63,14 @@ class RatesListAdapter (
 
         private val txtCode: TextView = itemView.findViewById(R.id.textview_view_item_list_rates_code)
         private var inputEditTextItemListRates: TextInputEditText = itemView.findViewById(R.id.input_edit_text_item_list_rates)
+        private var inputLayoutItemListRates: TextInputLayout = itemView.findViewById(R.id.input_layout_item_list_rates)
 
         fun bindView(rate: Rate?, position: Int) = with(itemView){
             txtCode.text = rate?.code
 
             var hasTextWatcher = false
 
-            inputEditTextItemListRates.setOnClickListener {
+            inputEditTextItemListRates.onFocusChangeListener = View.OnFocusChangeListener { _, _ ->
                 currentCode = rate?.code
                 currentInputText = rate?.value.toString()
 
