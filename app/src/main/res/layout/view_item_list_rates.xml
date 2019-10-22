@@ -17,7 +17,7 @@
             android:id="@+id/image_view_item_list_rates_icon"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/ic_launcher_background"
+            android:src="@drawable/ic_aud"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>

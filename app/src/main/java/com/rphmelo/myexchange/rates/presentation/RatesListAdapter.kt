@@ -63,7 +63,6 @@ class RatesListAdapter (
 
         private val txtCode: TextView = itemView.findViewById(R.id.textview_view_item_list_rates_code)
         private var inputEditTextItemListRates: TextInputEditText = itemView.findViewById(R.id.input_edit_text_item_list_rates)
-        private var inputLayoutItemListRates: TextInputLayout = itemView.findViewById(R.id.input_layout_item_list_rates)
 
         fun bindView(rate: Rate?, position: Int) = with(itemView){
             txtCode.text = rate?.code
