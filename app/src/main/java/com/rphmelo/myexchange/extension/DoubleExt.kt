@@ -2,8 +2,8 @@ package com.rphmelo.myexchange.extension
 
 import java.math.RoundingMode
 
-fun Double.convertCurrency(ratio: Double, rateNewValue: Double): Double {
-    return (ratio.round(4) * rateNewValue.round(4)).round(2)
+fun Double.convertCurrency(ratio: Double): Double {
+    return (ratio.round(4) * this.round(4)).round(4)
 }
 
 fun calculateRatio(rateListValue: Double, rateInputValue: Double): Double{

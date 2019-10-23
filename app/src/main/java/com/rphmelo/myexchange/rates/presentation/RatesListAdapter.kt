@@ -85,7 +85,6 @@ class RatesListAdapter (
             }
 
             var hasTextWatcher = false
-            var shouldChangeRate = true
 
             inputEditTextItemListRates.onFocusChangeListener = View.OnFocusChangeListener { _, _ ->
                 currentCode = rate?.code
@@ -114,8 +113,8 @@ class RatesListAdapter (
                             s?.let {
                                 if(it.isNotEmpty()){
                                     if(currentCode == rate?.code && isUpdatingValue){
-                                        ratesListValue.value = ratesListValue.value?.mapIndexed { index, value ->
-                                            value.convertCurrency(ratesListRatios.value!![index], it.toString().toDouble().round(2))
+                                        ratesListValue.value = ratesListValue.value?.mapIndexed { index, _ ->
+                                            it.toString().toDouble().convertCurrency(ratesListRatios.value!![index])
                                         }
                                     }
                                 }
