@@ -19,7 +19,7 @@ class RatesActivity : AppCompatActivity(), RatesView {
     private lateinit var rvActivityRatesListRates: RecyclerView
     private lateinit var ratesListAdapter: RatesListAdapter
     private lateinit var ratesProgressBar: ProgressBar
-    private val defaultBase = "AUD"
+    private val defaultBase = "EUR"
 
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
