@@ -12,8 +12,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.rphmelo.myexchange.R
+import com.rphmelo.myexchange.extension.calculateRatio
 import com.rphmelo.myexchange.extension.convertCurrency
 import com.rphmelo.myexchange.extension.getResourceByName
+import com.rphmelo.myexchange.extension.round
 import com.rphmelo.myexchange.rates.domain.model.Rate
 
 class RatesListAdapter (
@@ -22,6 +24,7 @@ class RatesListAdapter (
 ): RecyclerView.Adapter<RatesListAdapter.RatesListViewHolder>() {
 
     private var ratesListValue = MutableLiveData<List<Double>>()
+    private var ratesListRatios = MutableLiveData<List<Double>>()
     private var currentCode: String? = null
     private var hasRatesListValue = false
     private var isUpdatingValue = false
@@ -85,23 +88,24 @@ class RatesListAdapter (
 
             inputEditTextItemListRates.onFocusChangeListener = View.OnFocusChangeListener { _, _ ->
                 currentCode = rate?.code
+                ratesListRatios.value = ratesListValue.value?.map {
+                    calculateRatio(it, inputEditTextItemListRates.text.toString().toDouble())
+                }
 
                 if(!hasTextWatcher){
                     inputEditTextItemListRates.addTextChangedListener(object: TextWatcher {
-                        var rateOldValue: String = ""
-
                         override fun afterTextChanged(s: Editable?) {
 
                         }
 
                         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                            rateOldValue = s.toString()
+
                         }
 
                         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                             if(currentCode == rate?.code && isUpdatingValue){
-                                ratesListValue.value = ratesListValue.value?.map {
-                                    it.convertCurrency(rateOldValue.toDouble(), s.toString().toDouble())
+                                ratesListValue.value = ratesListValue.value?.mapIndexed { index, value ->
+                                    value.convertCurrency(ratesListRatios.value!![index], s.toString().toDouble())
                                 }
                             }
                         }
