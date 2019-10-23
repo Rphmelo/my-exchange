@@ -10,6 +10,7 @@ import android.widget.ProgressBar
 import com.rphmelo.myexchange.R
 import com.rphmelo.myexchange.extension.gone
 import com.rphmelo.myexchange.extension.visible
+import com.rphmelo.myexchange.rates.domain.RatesViewModel
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 

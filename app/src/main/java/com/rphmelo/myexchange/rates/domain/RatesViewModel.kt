@@ -1,4 +1,4 @@
-package com.rphmelo.myexchange.rates.presentation
+package com.rphmelo.myexchange.rates.domain
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel

@@ -3,7 +3,7 @@ package com.rphmelo.myexchange.di.modules
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import com.rphmelo.myexchange.di.keys.ViewModelKey
-import com.rphmelo.myexchange.rates.presentation.RatesViewModel
+import com.rphmelo.myexchange.rates.domain.RatesViewModel
 import com.rphmelo.myexchange.common.FactoryViewModel
 import dagger.Binds
 import dagger.Module
