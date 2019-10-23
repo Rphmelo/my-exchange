@@ -85,11 +85,19 @@ class RatesListAdapter (
             }
 
             var hasTextWatcher = false
+            var shouldChangeRate = true
 
             inputEditTextItemListRates.onFocusChangeListener = View.OnFocusChangeListener { _, _ ->
                 currentCode = rate?.code
                 ratesListRatios.value = ratesListValue.value?.map {
-                    calculateRatio(it, inputEditTextItemListRates.text.toString().toDouble())
+                    var newValue = 0.0
+                    inputEditTextItemListRates.text?.apply {
+                        if(isNotEmpty()){
+                            newValue = calculateRatio(it, inputEditTextItemListRates.text.toString().toDouble())
+                        }
+                    }
+
+                    newValue
                 }
 
                 if(!hasTextWatcher){
@@ -103,11 +111,16 @@ class RatesListAdapter (
                         }
 
                         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                            if(currentCode == rate?.code && isUpdatingValue){
-                                ratesListValue.value = ratesListValue.value?.mapIndexed { index, value ->
-                                    value.convertCurrency(ratesListRatios.value!![index], s.toString().toDouble())
+                            s?.let {
+                                if(it.isNotEmpty()){
+                                    if(currentCode == rate?.code && isUpdatingValue){
+                                        ratesListValue.value = ratesListValue.value?.mapIndexed { index, value ->
+                                            value.convertCurrency(ratesListRatios.value!![index], it.toString().toDouble().round(2))
+                                        }
+                                    }
                                 }
                             }
+
                         }
                     })
                     hasTextWatcher = true
@@ -117,7 +130,7 @@ class RatesListAdapter (
             ratesListValue.observe(activity, Observer {
                 val newRateText: String? = it?.get(position).toString()
 
-                if(isUpdatingValue){
+                if(isUpdatingValue ){
                     isUpdatingValue = false
                     inputEditTextItemListRates.setText(newRateText)
                     isUpdatingValue = true
