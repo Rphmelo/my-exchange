@@ -17,7 +17,7 @@
             android:id="@+id/image_view_item_list_rates_icon"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/ic_aud"
+            android:src="@color/softBlack"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
@@ -41,11 +41,13 @@
 
             <TextView
                     android:id="@+id/textview_view_item_list_rates_description"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:singleLine="true"
                     android:textSize="16sp"
                     android:textColor="@color/softBlack"
-                    tools:text="Real Brasileiro"/>
+                    android:text="@string/flag_name_undefined"/>
 
         </LinearLayout>
 
